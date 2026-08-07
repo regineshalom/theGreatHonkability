@@ -44,7 +44,7 @@ async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
 
     load_dotenv(".env")
-    token = os.getenv("TUMBLR_TELEGRAM_BOT")
+    token = os.getenv("BUDGET_TELEGRAM_BOT")
 
     bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
