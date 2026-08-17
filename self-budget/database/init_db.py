@@ -20,7 +20,7 @@ def init_db():
             CREATE TABLE IF NOT EXISTS category (
                 cat_name TEXT,
                 sub_cat TEXT,
-                cat_budget NUMERIC(10, 2),
+                cat_budget INTEGER not null,
                 cat_id INTEGER PRIMARY KEY,
                 UNIQUE(cat_name, sub_cat)
             )
@@ -29,9 +29,13 @@ def init_db():
             insert or ignore into category (cat_name, sub_cat, cat_budget) values (:cat_name, :sub_cat, :cat_budget)
             """),
                      [
-                         {"cat_name": "food", "sub_cat": "lunch", "cat_budget": 310},
-                         {"cat_name": "food", "sub_cat": "dinner", "cat_budget": 310},
-                         {"cat_name": "food", "sub_cat": "coffee", "cat_budget": 93}
+                        {"cat_name": "food", "sub_cat": "lunch", "cat_budget": 31000},
+                        {"cat_name": "food", "sub_cat": "dinner", "cat_budget": 31000},
+                        {"cat_name": "food", "sub_cat": "coffee", "cat_budget": 9300},
+                        {"cat_name": "public transportation", "sub_cat": None, "cat_budget": 10000},
+                        {"cat_name": "tardiness", "sub_cat": None, "cat_budget": 10000},
+                        {"cat_name": "whimsies", "sub_cat": "clothes", "cat_budget": 10000},
+                        {"cat_name": "whimsies", "sub_cat": "misc", "cat_budget": 10000}
                      ])
 
         conn.execute(text("""
@@ -47,3 +51,5 @@ def init_db():
                 UNIQUE (telegram_chat_id, telegram_message_id)
             )
         """))
+
+init_db()
