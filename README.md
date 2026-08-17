@@ -1,4 +1,8 @@
 # theGreatHonkability
 
-## Circus 1: Tumblr my teen years doomscroll
-Reason for proj: I'm too busy to scroll Youtube, Reddit and Instagram, so I would like to have my quick checks in what's going on in Tumblr and get it to send me posts into my Telegram instead
+### For self bc memory of a goldfish
+How to activate venv : source .venv/bin/activate
+
+## Circus 1: Self budgetting tool
+I suck at money. I need to track money. Money scares me. I will reroute my spendings to just messaging my telegram on what I've splurged on because I am a lazy person.
+
