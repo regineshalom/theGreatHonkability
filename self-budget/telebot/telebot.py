@@ -1,7 +1,7 @@
 ### Personal logging of changes
 #
 # ??? : Creation of the bot
-# 19/8/2026: Added help command, and set_commands because I thought it would look cooler hahaha, also updated my personal budget db after reviewing my finances lol
+# 19/8/2026: Added help, budget command, and set_commands because I thought it would look cooler hahaha, also updated my personal budget db after reviewing my finances lol
 
 # Import standard modules
 from decimal import InvalidOperation
