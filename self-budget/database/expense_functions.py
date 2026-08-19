@@ -127,3 +127,22 @@ def update_expense(expense_name: str, expense_amount: float, date_of_message: st
         remaining_budgets = result.fetchall()
 
         return remaining_budgets 
+
+def show_budget() -> list:
+    """
+    Show the remaining budget for all categories.
+
+    Returns:
+        list: A list of tuples containing the category name, subcategory, and remaining budget.
+    """
+    with engine.begin() as connection:
+        query = text("""
+            select c.cat_name, c.sub_cat, c.cat_budget - ifnull(sum(e.exp_amount), 0) as remaining_budget
+            from category c
+            left join expenses e on c.cat_id = e.cat_id
+            group by c.cat_id
+        """)
+        result = connection.execute(query)
+        remaining_budgets = result.fetchall()
+
+        return remaining_budgets
