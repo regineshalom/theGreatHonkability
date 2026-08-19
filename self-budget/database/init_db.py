@@ -32,10 +32,10 @@ def init_db():
                         {"cat_name": "food", "sub_cat": "lunch", "cat_budget": 31000},
                         {"cat_name": "food", "sub_cat": "dinner", "cat_budget": 31000},
                         {"cat_name": "food", "sub_cat": "coffee", "cat_budget": 9300},
-                        {"cat_name": "public transportation", "sub_cat": None, "cat_budget": 10000},
-                        {"cat_name": "tardiness", "sub_cat": None, "cat_budget": 10000},
-                        {"cat_name": "whimsies", "sub_cat": "clothes", "cat_budget": 10000},
-                        {"cat_name": "whimsies", "sub_cat": "misc", "cat_budget": 10000}
+                        {"cat_name": "public transportation", "sub_cat": None, "cat_budget": 9300},
+                        {"cat_name": "tardiness", "sub_cat": None, "cat_budget": 20000},
+                        {"cat_name": "whimsies", "sub_cat": "clothes", "cat_budget": 20000},
+                        {"cat_name": "whimsies", "sub_cat": "misc", "cat_budget": 15000}
                      ])
 
         conn.execute(text("""

@@ -1,4 +1,7 @@
-
+### Personal logging of changes
+#
+# ??? : Creation of the bot
+# 19/8/2026: Added help command, and set_commands because I thought it would look cooler hahaha, also updated my personal budget db after reviewing my finances lol
 
 # Import standard modules
 from decimal import InvalidOperation
@@ -13,12 +16,12 @@ import os
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
-from aiogram.types import Message
+from aiogram.filters import CommandStart, Command, CommandObject
+from aiogram.types import Message, BotCommand
 
 # Import parser modules
 from parser.expense_parser import parse_tele_text
-from database.expense_functions import insert_expense, update_expense
+from database.expense_functions import insert_expense, update_expense, show_budget
 
 dp = Dispatcher()
 
@@ -34,6 +37,49 @@ async def command_start_handler(message: Message) -> None:
     # Bot instance: `bot.send_message(chat_id=message.chat.id, ...)`
     await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
 
+## Gives me the created commands as of now to get quick infos (But like, not completed.. soon haha)
+async def set_commands(bot: Bot):
+    commands = [
+        BotCommand(command="start", description="Start the bot"),
+        BotCommand(command="help", description="Show this message"),
+        BotCommand(command="ping", description="Check if I am online"),
+        BotCommand(command="echo", description="I will repeat your text"),
+        BotCommand(command="budget", description="Check your budget")
+    ]
+    await bot.set_my_commands(commands)
+
+@dp.message(Command("help"))
+async def help_command(message: Message) -> None:
+    help_text = (
+        'Here are my commands:\n'
+        '/start - Start the bot\n'
+        '/help - Show this message\n'
+        '/ping - Check if I am online\n'
+        '/echo &lt;text&gt; - I will repeat your text\n'
+        '/budget - Check your remaining budget'
+    )
+    await message.answer(help_text)
+
+@dp.message(Command("budget"))
+async def show_budget_command(message: Message) -> None:
+    """
+    This handler receives messages with `/budget` command
+    """
+    # Here you can implement the logic to show the user's budget
+
+    # Display the remaining budgets for each category
+    remaining_budget = show_budget()
+    lines = []
+
+    for line in remaining_budget:
+        cat_name, sub_cat, remaining_budget = line
+        lines.append(
+            f"Remaining budget for {cat_name} - {sub_cat}: {remaining_budget / 100:.2f}"
+        )
+        
+    await message.answer("\n".join(lines))
+
+    await message.answer("Your budget details will be shown here.")
 
 @dp.message()
 async def handle_messages(message: Message) -> None:
@@ -106,6 +152,7 @@ async def main() -> None:
     token = os.getenv("BUDGET_TELEGRAM_BOT")
 
     bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    await set_commands(bot)
 
     # And the run events dispatching
     await dp.start_polling(bot)
